@@ -32,7 +32,7 @@
 	<bean id="bb" class="com.java.di04.BB">
 		<property name="apple" value="맛있어"/>
 		<property name="banana">
-			<value>"길다"</value>
+			<value>길다</value>
 		</property>
 	</bean>
 
