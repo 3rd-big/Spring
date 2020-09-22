@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+  
+<mapper namespace="dao.BankMapper">
+	<insert id="bank_insert" parameterType="com.java.bank.dto.BankDto">
+		insert into bank 
+		values(bank_num_seq.nextval, 
+				#{id}, 
+				#{name}, 
+				#{balance}
+				)
+	</insert>
+
+	<update id="bank_update" parameterType="com.java.bank.dto.BankDto">
+		update bank 
+		set balance=#{balance} 
+		where id=#{id}
+	</update>
+
+	<select id="bank_select" resultType="com.java.bank.dto.BankDto" parameterType="String">
+		select * 
+		from bank
+		where id=#{id}
+	</select>
+
+	<select id="bank_select_list" resultType="com.java.bank.dto.BankDto">
+		select *
+		from bank
+	</select>
+	
+	
+</mapper>
