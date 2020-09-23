@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="account">
+	<update id="withdraw">
+		update account
+		set money = money - #{money}
+		where account_num = #{accountNum}
+	</update>
+
+	<update id="deposit">
+		update account
+		set money = money + #{money}
+		where account_num = #{accountNum}
+	</update>
+
+</mapper>
