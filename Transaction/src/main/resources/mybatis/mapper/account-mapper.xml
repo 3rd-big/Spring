@@ -12,5 +12,11 @@
 		set money = money + #{money}
 		where account_num = #{accountNum}
 	</update>
+	
+	<select id="inquire" resultType="String">
+		select money
+		from account
+		where account_num = #{accountNum}
+	</select>
 
 </mapper>
