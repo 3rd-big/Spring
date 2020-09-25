@@ -36,6 +36,9 @@ public class MemberController extends MultiActionController{	//command
 		return new ModelAndView("member/register");
 	}
 	public ModelAndView memberRegisterOk(HttpServletRequest request, HttpServletResponse response, MemberDto memberDto) {
+		
+		HAspect.logger.info(HAspect.logMsg + memberDto.toString());
+		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("memberDto", memberDto);
 		
@@ -45,36 +48,61 @@ public class MemberController extends MultiActionController{	//command
 	}
 	
 	public ModelAndView memberIdCheck(HttpServletRequest request, HttpServletResponse response) {
-		return null;
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("request", request);
+		
+		memberService.memberIdCheck(mav);
+		
+		return mav;
 	}
 	public ModelAndView memberZipcode(HttpServletRequest request, HttpServletResponse response) {
 		return null;
 	}
 	
 	public ModelAndView memberLogin(HttpServletRequest request, HttpServletResponse response) {
-		return null;
+		return new ModelAndView("member/login");
 	}
 	public ModelAndView memberLoginOk(HttpServletRequest request, HttpServletResponse response) {
-		return null;
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("request", request);
+		
+		memberService.memberLoginOk(mav);
+		
+		return mav;
 	}
 	public ModelAndView memberMain(HttpServletRequest request, HttpServletResponse response) {
-		return null;
+		return new ModelAndView("member/main");
 	}
 	public ModelAndView memberLogout(HttpServletRequest request, HttpServletResponse response) {
-		return null;
+		return new ModelAndView("member/logout");
 	}
-	
+		
 	public ModelAndView memberUpdate(HttpServletRequest request, HttpServletResponse response) {
-		return null;
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("request", request);
+		
+		memberService.memberUpdate(mav);
+		
+		return mav;
 	}
 	public ModelAndView memberUpdateOk(HttpServletRequest request, HttpServletResponse response, MemberDto memberDto) {
-		return null;
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("memberDto", memberDto);
+		
+		memberService.memberUpdateOk(mav);
+		
+		return mav;
 	}
 	public ModelAndView memberDelete(HttpServletRequest request, HttpServletResponse response) {
-		return null;
+		return new ModelAndView("member/delete");
 	}
 	public ModelAndView memberDeleteOk(HttpServletRequest request, HttpServletResponse response) {
-		return null;
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("request", request);
+		
+		memberService.memberDeleteOk(mav);
+		
+		return mav;
 	}
 	
 }
