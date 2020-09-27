@@ -23,9 +23,7 @@
 		            $('input[name=zipCode]').val(data.zonecode);
 		            $('input[name=addr]').val(data.address);
 		            $('input[name=addr]').focus();
-		            
-		            
-		            
+     
 		        }
 		    }).open();
 		}

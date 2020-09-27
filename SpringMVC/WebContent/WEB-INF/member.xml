@@ -4,7 +4,7 @@
 	xmlns:aop="http://www.springframework.org/schema/aop"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd">
-
+		
 	<bean id="memberController" class="com.java.member.controller.MemberController">
 		<constructor-arg ref="memberServiceImp"/>
 		<property name="methodNameResolver" ref="memberPropertiesMethodNameResolver"/>
@@ -24,7 +24,7 @@
 				<prop key="/member/update.do">memberUpdate</prop>
 				<prop key="/member/updateOk.do">memberUpdateOk</prop>
 				<prop key="/member/delete.do">memberDelete</prop>
-				 <prop key="/member/deleteOk.do">memberDeleteOk</prop>
+				<prop key="/member/deleteOk.do">memberDeleteOk</prop>
 			</props>
 		</property>
 	</bean>

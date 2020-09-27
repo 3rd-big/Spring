@@ -9,6 +9,7 @@
 <title>파일 게시판</title>
 <script type="text/javascript" src="${root }/javaScript/board/board.js"></script>
 <link type="text/css" rel="stylesheet" href="${root }/CSS/board/boardStyle.css">
+
 </head>
 <body>
 	<div id="board"><!-- 전체 폼 -->
