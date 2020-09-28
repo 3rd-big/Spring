@@ -43,10 +43,16 @@
 				)
 	</insert>
 	
-	<select id="fileBoard_list" resultMap="board_dto">
-		select *
-		from board
-		order by group_number desc, sequence_number
+	<select id="fileBoard_list" parameterType="java.util.Map" resultMap="board_dto">
+ 	<![CDATA[
+		select * 
+		from (select rownum as rnum, a.* 
+				from (select * 
+						from board 
+						order by group_number desc, sequence_number) A 
+				where rownum <= #{endRow}) X 
+		where x.rnum >= #{startRow}
+	]]>
 	</select>
 
 	<select id="fileBoard_select" parameterType="int" resultMap="board_dto">
@@ -62,12 +68,35 @@
 	<update id="sequenceNumber_update" parameterType="java.util.Map">
 		update board
 		set sequence_number = sequence_number + 1
-		where group_number = #{groupNumber}
+		where group_number = #{groupNumber} and sequence_number > #{sequenceNumber}
 	</update>
 	
 	<select id="sequenceCheck" parameterType="java.util.Map" resultType="String">
 		select count(*)
 		from board
-		where sequence_number = #{sequenceNumber} and group_number = #{groupNumber}
+		where sequence_number = #{sequenceNumber} + 1 and group_number = #{groupNumber}
 	</select>
+
+	<select id="maxSequenceNumber_select" resultType="String">
+		select max(sequence_number) as SEQUENCE_NUMBER
+		from board
+	</select>
+	
+	<select id="childCheck_select" parameterType="java.util.Map" resultType="String">
+		select count(*)
+		from board
+		where group_number = #{groupNumber} and sequence_number > #{sequenceNumber} and sequence_level > #{sequenceLevel}	
+	</select>
+	
+	<select id="fileBoard_getCount" resultType="int">
+		select nvl(count(*), 0)
+		from board
+	</select>
+	
+	<update id="fileBoard_view" parameterType="int">
+		update board
+		set read_count = read_count + 1
+		where board_number = #{boardNumber}
+	</update>
+
 </mapper>

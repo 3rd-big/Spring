@@ -56,4 +56,5 @@ public class MemberDaoImp implements MemberDao {
 	public int memberDeleteOk(Map<String, String> hmap) {
 		return sqlSessionTemplate.delete("member_delete", hmap);
 	}
+
 }

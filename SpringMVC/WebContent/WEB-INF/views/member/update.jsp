@@ -86,18 +86,20 @@
 					<input type="checkbox" value="music" name="interest"><span>음악</span>
 					<input type="checkbox" value="art" name="interest"><span>미술</span>
 					<input type="hidden" name="resultInterest">
-					${memberDto.interest }
-				 
-					<c:forTokens var="interest" items="${memberDto.interest }" delims=",">
+				 	${memberDto.interest }
+				 	
+																
+<%-- 					<c:forTokens var="interest" items="${memberDto.interest }" delims=",">
 						<script type="text/javascript">
+						debugger;
 							for(var i=0; i<createForm1.interest.length; i++){
 								if(createForm1.interest[i].value=="${interest}"){
 									createForm1.interest[i].checked=true;
 								}
 							}
 						</script>
-					</c:forTokens>
-				 <!-- 
+					</c:forTokens> --%>
+				 
 					<script type="text/javascript">
 						var text="${memberDto.interest}";
 						var token=text.split(",");
@@ -109,7 +111,7 @@
 							}
 						}
 					</script>
-					-->
+					
 				</div>
 				
 				<div id="form_button">

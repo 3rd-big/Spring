@@ -81,6 +81,8 @@ public class MemberServiceImp implements MemberService {
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
 		HttpSession session = request.getSession();
 		
+		System.out.println("찍히나?");
+		
 		String id = (String) session.getAttribute("id");
 		
 		MemberDto memberDto = memberDao.memberUpdate(id);

@@ -47,7 +47,8 @@ public class FileBoardController extends MultiActionController {
 	
 	public ModelAndView fileBoardList (HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView();
-//		System.out.println(request.getParameter("pageNumber"));
+		System.out.println(request.getParameter("pageNumber"));
+		mav.addObject("request", request);
 		fileBoardService.fileBoardList(mav);
 		
 		return mav;

@@ -77,23 +77,37 @@ public class FileBoardServiceImp implements FileBoardService{
 			fileBoardDto.setGroupNumber(boardNumber);
 			fileBoardDto.setSequenceNumber(0);
 			fileBoardDto.setSequenceLevel(0);
-//			System.out.println("부모글 작성");
+			System.out.println("부모글 작성");
 		}else {
-			int sequenceNumber = Integer.parseInt(multiRequest.getParameter("sequenceNumber")) + 1;
+			System.out.println("넘어온 시퀀스넘버" + multiRequest.getParameter("sequenceNumber"));
+			int sequenceNumber = Integer.parseInt(multiRequest.getParameter("sequenceNumber"));
+			int sequenceLevel = Integer.parseInt(multiRequest.getParameter("sequenceLevel"));
+			int maxSequenceNumber = fileBoardDao.fileBoardMaxSequence() + 1;
+			
 			int groupNumber = Integer.parseInt(multiRequest.getParameter("groupNumber"));
 			Map<String, Integer> hmap = new HashMap<String, Integer>();
 			hmap.put("sequenceNumber", sequenceNumber);
 			hmap.put("groupNumber", groupNumber);
+			hmap.put("sequenceLevel", sequenceLevel);
+		
+			boolean isChild = fileBoardDao.fileBoardChildCheck(hmap);
 			
-			if(fileBoardDao.fileBoardSequenceCheck(hmap) > 0) {
-				fileBoardDao.fileBoardSequenceNumberAdd(hmap);
+			if(isChild) {	// 답변을 달 대상의 자식 있음
+				fileBoardDto.setSequenceNumber(maxSequenceNumber);
+				System.out.println("답변을 달 대상의 자식 있음");
+			}else { 		// 답변을 달 대상의 자식 없음
+				if(fileBoardDao.fileBoardSequenceCheck(hmap) > 0) {
+					fileBoardDao.fileBoardSequenceNumberAdd(hmap);
+					fileBoardDto.setSequenceNumber(sequenceNumber+1);
+					System.out.println("답변을 달 대상의 자식 없음");
+					System.out.println("시퀀스 중복이후 증가");
+				}
 			}
-			
-			
+	
 			fileBoardDto.setGroupNumber(groupNumber);
-			fileBoardDto.setSequenceNumber(sequenceNumber);
+			
 			fileBoardDto.setSequenceLevel(Integer.parseInt(multiRequest.getParameter("sequenceLevel")) + 1);
-//			System.out.println("자식글 작성");
+			System.out.println("자식글 작성");
 //			System.out.println(multiRequest.getParameter("groupNumber"));
 //			System.out.println(multiRequest.getParameter("sequenceNumber"));
 //			System.out.println(multiRequest.getParameter("sequenceLevel"));
@@ -107,13 +121,33 @@ public class FileBoardServiceImp implements FileBoardService{
 
 	@Override
 	public void fileBoardList(ModelAndView mav) {
+		Map<String, Object> map = mav.getModelMap();
+		HttpServletRequest request = (HttpServletRequest) map.get("request");
 		
-		List<FileBoardDto> boardList = fileBoardDao.fileBoardList();
+		String pageNumber = request.getParameter("pageNumber");
+		if(pageNumber == null) {
+			pageNumber = "1";
+		}
 		
-		mav.addObject("boardSize", 5);
-		mav.addObject("currentPage", 1);
-		mav.addObject("count", boardList.size());
+		int currentPage = Integer.parseInt(pageNumber);
+		int boardSize = 10;
+		
+		int startRow = (currentPage - 1) * boardSize + 1;
+		int endRow = currentPage * boardSize;
+		
+		int count = fileBoardDao.fileBoardCount();
+		
+		List<FileBoardDto> boardList = null;
+		
+		if(count > 0) {
+			boardList = fileBoardDao.fileBoardList(startRow, endRow);
+		}
+		
+		mav.addObject("boardSize", boardSize);
+		mav.addObject("currentPage", currentPage);	
+		mav.addObject("count", count);
 		mav.addObject("boardList", boardList);
+		
 		mav.setViewName("fileBoard/list");
 	}
 
