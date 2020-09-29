@@ -98,5 +98,44 @@
 		set read_count = read_count + 1
 		where board_number = #{boardNumber}
 	</update>
+	
+	<select id="fileBoard_password_check" parameterType="java.util.Map" resultType="String">
+		select count(*)
+		from board
+		where PASSWORD = #{password} 
+	</select>
+	
+<!-- 	<update id="fileBoard_update_delFile" parameterType="board_dto">
+		update board
+		set email = #{email},
+			subject = #{subject},
+			content = #{content},
+			file_name = '',
+			path = '',
+			file_size = 0
+		where board_number = #{boardNumber}
+	</update>
+	
+	<update id="fileBoard_update_file" parameterType="board_dto">
+		update board
+		set email = #{email},
+			subject = #{subject},
+			content = #{content},
+			file_name = #{fileName},
+			path = #{path},
+			file_size = #{fileSize}
+		where board_number = #{boardNumber}
+	</update>
+	
+	<update id="fileBoard_update" parameterType="board_dto">
+		update board
+		set email = #{email},
+			subject = #{subject},
+			content = #{content},
+			file_name = #{fileName},
+			path = #{path},
+			file_size = #{fileSize}
+		where board_number = #{boardNumber}
+	</update> -->
 
 </mapper>

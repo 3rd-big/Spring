@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.multiaction.MultiActionController;
 
-
+import com.java.board.dto.FileBoardDto;
 import com.java.board.service.FileBoardService;
 
 public class FileBoardController extends MultiActionController {
@@ -59,6 +59,53 @@ public class FileBoardController extends MultiActionController {
 		mav.addObject("request", request);
 		
 		fileBoardService.fileBoardRead(mav);
+		
+		return mav;
+	}
+	
+	public void fileBoardDownLoad (HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("request", request);
+		mav.addObject("response", response);
+		
+		fileBoardService.fileBoardDownLoad(mav);
+	}
+	
+	public ModelAndView fileBoardUpdate (HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("request", request);
+		
+//		fileBoardService.fileBoardUpdate(mav);
+		
+		return mav;
+	}
+	
+	public ModelAndView fileBoardUpdateOk (HttpServletRequest request, HttpServletResponse response, FileBoardDto fileBoardDto) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("request", request);
+		mav.addObject("fileBoardDto", fileBoardDto);
+		
+//		fileBoardService.fileBoardUpdateOk(mav);
+		
+		return mav;
+	}
+	
+	public ModelAndView fileBoardDelete (HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("boardNumber", request.getParameter("boardNumber"));
+		mav.addObject("pageNumber", request.getParameter("pageNumber"));
+		mav.setViewName("fileBoard/delete");
+		return mav;
+	}
+	
+	public ModelAndView fileBoardDeleteOk(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("password", request.getParameter("password"));
+		mav.addObject("pageNumber", request.getParameter("pageNumber"));
+		mav.addObject("boardNumber", request.getParameter("boardNumber"));
+		
+		fileBoardService.fileBoardDeleteOk(mav);
 		
 		return mav;
 	}

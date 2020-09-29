@@ -85,5 +85,32 @@ public class FileBoardDaoImp implements FileBoardDao{
 	public int fileBoardCount() {
 		return sqlSessionTemplate.selectOne("fileBoard_getCount");
 	}
+
+	@Override
+	public FileBoardDto fileBoardSelect(int boardNumber) {
+		return sqlSessionTemplate.selectOne("fileBoard_select", boardNumber);
+	}
+
+	@Override
+	public int fileBoardDeleteOk(Map<String, Object> hmap) {
+		String value = sqlSessionTemplate.selectOne("fileBoard_password_check", hmap);
+		int check = -1;
+		if(value != null) {
+			check = 1;
+			sqlSessionTemplate.selectOne("fileBoard_delete", hmap);
+		}
+		return check;
+	}
+
+	/*
+	 * @Override public int fileBoardUpdateOk(FileBoardDto updateDto, int
+	 * fileDelCheck) { if(fileDelCheck == 1 && updateDto.getFileName()==null) {
+	 * return sqlSessionTemplate.update("fileBoard_update_delFile", updateDto);
+	 * }else if(fileDelCheck == 1 && updateDto.getFileName()!=null) { return
+	 * sqlSessionTemplate.update("fileBoard_update_file", updateDto); } return
+	 * sqlSessionTemplate.update("fileBoard_update_file", updateDto);
+	 * 
+	 * }
+	 */
 	
 }

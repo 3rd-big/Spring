@@ -21,6 +21,7 @@
 				<prop key="/fileBoard/updateOk.do">fileBoardUpdateOk</prop>
 				<prop key="/fileBoard/write.do">fileBoardWrite</prop>
 				<prop key="/fileBoard/writeOk.do">fileBoardWriteOk</prop>
+				<prop key="/fileBoard/downLoad.do">fileBoardDownLoad</prop>
 			</props>
 		</property>
 	</bean>
